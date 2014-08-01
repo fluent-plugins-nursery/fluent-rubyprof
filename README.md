@@ -1,0 +1,64 @@
+# Fluent::Rubyprof
+
+Using fluent-rubyprof, you can start and stop ruby-prof dynamically from outside of fluentd without any configuration changes.
+
+## Installation
+
+```
+$ fluent-gem install fluent-rubyprof
+```
+
+## Prerequisite
+
+`in_debug_agent` plugin is required to be enabled.
+
+```
+<source>
+  type debug_agent
+</source>
+```
+
+And, `ruby-prof` gem is required. 
+
+```
+$ fluent-gem install ruby-prof
+```
+
+## Usage
+
+Start
+
+```
+$ fluent-rubyprof start
+```
+
+Stop and write a profiling result.
+
+```
+$ fluent-rubyprof stop -o /tmp/fluent-rubyprof.txt
+```
+
+## Options
+
+|parameter|description|default|
+|---|---|---|
+|-h, --host HOST|fluent host|127.0.0.1|
+|-p, --port PORT|debug_agent|24230|
+|-u, --unix PATH|use unix socket instead of tcp||
+|-o, --output PATH|output file|/tmp/fluent-rubyprof.txt|
+
+## ChangeLog
+
+See [CHANGELOG.md](./CHANGELOG.md)
+
+## Contributing
+
+1. Fork it ( http://github.com/sonots/fluent-rubyprof/fork )
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
+## Copyright
+
+See [LICENSE.txt](./LICENSE.txt)
