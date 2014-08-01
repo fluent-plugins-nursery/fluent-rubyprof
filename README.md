@@ -46,6 +46,7 @@ $ fluent-rubyprof stop -o /tmp/fluent-rubyprof.txt
 |-p, --port PORT|debug_agent|24230|
 |-u, --unix PATH|use unix socket instead of tcp||
 |-o, --output PATH|output file|/tmp/fluent-rubyprof.txt|
+|-m, --measure_mode MEASURE_MODE|ruby-prof measure mode. See [ruby-prof#measurements](https://github.com/ruby-prof/ruby-prof#measurements)|PROCESS_TIME|
 
 ## ChangeLog
 
