@@ -77,6 +77,13 @@ def main
   end
 
   $remote_engine.method_missing(:instance_eval, remote_code)
+
+  case opts[:command]
+  when 'start'
+    $stdout.puts 'fluent-rubyprof: started'
+  when 'stop'
+    $stdout.puts "fluent-rubyprof: outputs to #{opts[:output]}"
+  end
 end
 
 main
