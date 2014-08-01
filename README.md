@@ -62,3 +62,7 @@ See [CHANGELOG.md](./CHANGELOG.md)
 ## Copyright
 
 See [LICENSE.txt](./LICENSE.txt)
+
+## Special Thanks
+
+I refered implemention of [fluent-tail](https://github.com/choplin/fluent-tail). Thanks!
