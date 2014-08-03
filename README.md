@@ -1,6 +1,6 @@
 # Fluent::Rubyprof
 
-Using fluent-rubyprof, you can start and stop ruby-prof dynamically from outside of fluentd without any configuration changes.
+Using fluent-rubyprof, you can start and stop [ruby-prof](https://github.com/ruby-prof/ruby-prof) dynamically from outside of fluentd without any configuration changes.
 
 ## Installation
 
