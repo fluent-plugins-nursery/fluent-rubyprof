@@ -48,6 +48,10 @@ $ fluent-rubyprof stop -o /tmp/fluent-rubyprof.txt
 |-o, --output PATH|output file|/tmp/fluent-rubyprof.txt|
 |-m, --measure_mode MEASURE_MODE|ruby-prof measure mode. See [ruby-prof#measurements](https://github.com/ruby-prof/ruby-prof#measurements)|PROCESS_TIME|
 
+## Further Reading
+
+* [Fluentd の debug_agent 経由で ruby-prof を起動する](http://qiita.com/sonots/items/749280547176d82f3e2c) (Japanese)
+
 ## ChangeLog
 
 See [CHANGELOG.md](./CHANGELOG.md)
