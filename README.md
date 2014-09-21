@@ -2,12 +2,6 @@
 
 Using fluent-rubyprof, you can start and stop [ruby-prof](https://github.com/ruby-prof/ruby-prof) dynamically from outside of fluentd without any configuration changes.
 
-## Installation
-
-```
-$ fluent-gem install fluent-rubyprof
-```
-
 ## Prerequisite
 
 `in_debug_agent` plugin is required to be enabled.
@@ -15,6 +9,7 @@ $ fluent-gem install fluent-rubyprof
 ```
 <source>
   type debug_agent
+  port 24230
 </source>
 ```
 
@@ -24,18 +19,24 @@ And, `ruby-prof` gem is required.
 $ fluent-gem install ruby-prof
 ```
 
+## Installation
+
+```
+$ fluent-gem install fluent-rubyprof
+```
+
 ## Usage
 
 Start
 
 ```
-$ fluent-rubyprof start
+$ fluent-rubyprof start -h localhost -p 24230
 ```
 
 Stop and write a profiling result.
 
 ```
-$ fluent-rubyprof stop -o /tmp/fluent-rubyprof.txt
+$ fluent-rubyprof stop -h localhost -p 24230 -o /tmp/fluent-rubyprof.txt
 ```
 
 ## Options
@@ -43,7 +44,7 @@ $ fluent-rubyprof stop -o /tmp/fluent-rubyprof.txt
 |parameter|description|default|
 |---|---|---|
 |-h, --host HOST|fluent host|127.0.0.1|
-|-p, --port PORT|debug_agent|24230|
+|-p, --port PORT|debug_agent port|24230|
 |-u, --unix PATH|use unix socket instead of tcp||
 |-o, --output PATH|output file|/tmp/fluent-rubyprof.txt|
 |-m, --measure_mode MEASURE_MODE|ruby-prof measure mode. See [ruby-prof#measurements](https://github.com/ruby-prof/ruby-prof#measurements)|PROCESS_TIME|
