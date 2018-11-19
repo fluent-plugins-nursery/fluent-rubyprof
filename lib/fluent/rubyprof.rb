@@ -55,7 +55,9 @@ module Fluent
         opts[:measure_mode] = v
       }
 
-      op.on('-P', '--printer PRINTER', "ruby-prof print format (default: #{opts[:printer]})") {|v|
+      op.on('-P', '--printer PRINTER', PRINTERS.keys,
+                "ruby-prof print format (default: #{opts[:printer]})",
+                "currently one of: #{PRINTERS.keys.join(', ')}") {|v|
         opts[:printer] = v
       }
       op.parse!(argv)
@@ -70,17 +72,13 @@ module Fluent
         raise OptionParser::InvalidOption.new("-m allows one of #{measure_modes.join(', ')}")
       end
 
-      unless PRINTERS.keys.include?(opts[:printer])
-        raise OptionParser::InvalidOption.new("-P allows one of #{PRINTERS.keys.join(', ')}")
-      end
-
       opts
     end
 
     def run
       begin
         opts = parse_options
-      rescue OptionParser::InvalidOption => e
+      rescue OptionParser::InvalidArgument, OptionParser::InvalidOption => e
         usage e.message
       end
 

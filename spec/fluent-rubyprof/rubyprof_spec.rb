@@ -25,7 +25,7 @@ describe Fluent::Rubyprof do
     end
 
     it 'incorrect printer' do
-      expect { Fluent::Rubyprof.new.parse_options(['start', '-P', 'bar']) }.to raise_error(OptionParser::InvalidOption)
+      expect { Fluent::Rubyprof.new.parse_options(['start', '-P', 'bar']) }.to raise_error(OptionParser::InvalidArgument)
     end
   end
 
