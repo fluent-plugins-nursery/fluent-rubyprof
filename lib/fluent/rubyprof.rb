@@ -9,8 +9,10 @@ module Fluent
       'flat_with_line_numbers' => 'FlatPrinterWithLineNumbers',
       'graph' => 'GraphPrinter',
       'graph_html' => 'GraphHtmlPrinter',
+      'call_tree' => 'CallTreePrinter',
       'call_stack' => 'CallStackPrinter',
       'dot' => 'DotPrinter',
+      'multi' => 'MultiPrinter',
     }
 
     def parse_options(argv = ARGV)
