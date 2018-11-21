@@ -1,3 +1,9 @@
+# 0.2.0 (2018/11/21)
+
+Enhancements:
+
+* Add `--printer` option (thanks to Fujimoto Seiji)
+
 # 0.1.0 (2014/08/01)
 
 Enhancements:
