@@ -3,6 +3,18 @@ require 'drb/drb'
 
 module Fluent
   class Rubyprof
+
+    PRINTERS = {
+      'flat' => 'FlatPrinter',
+      'flat_with_line_numbers' => 'FlatPrinterWithLineNumbers',
+      'graph' => 'GraphPrinter',
+      'graph_html' => 'GraphHtmlPrinter',
+      'call_tree' => 'CallTreePrinter',
+      'call_stack' => 'CallStackPrinter',
+      'dot' => 'DotPrinter',
+      'multi' => 'MultiPrinter',
+    }
+
     def parse_options(argv = ARGV)
       op = OptionParser.new
       op.banner += ' <start/stop> [output_file]'
@@ -22,6 +34,7 @@ module Fluent
         command: nil, # start or stop
         output: '/tmp/fluent-rubyprof.txt',
         measure_mode: 'PROCESS_TIME',
+        printer: 'flat',
       }
 
       op.on('-h', '--host HOST', "fluent host (default: #{opts[:host]})") {|v|
@@ -44,6 +57,11 @@ module Fluent
         opts[:measure_mode] = v
       }
 
+      op.on('-P', '--printer PRINTER', PRINTERS.keys,
+                "ruby-prof print format (default: #{opts[:printer]})",
+                "currently one of: #{PRINTERS.keys.join(', ')}") {|v|
+        opts[:printer] = v
+      }
       op.parse!(argv)
 
       opts[:command] = argv.shift
@@ -62,7 +80,7 @@ module Fluent
     def run
       begin
         opts = parse_options
-      rescue OptionParser::InvalidOption => e
+      rescue OptionParser::InvalidArgument, OptionParser::InvalidOption => e
         usage e.message
       end
 
@@ -85,7 +103,7 @@ module Fluent
         remote_code = <<-"CODE"
         result = RubyProf.stop
         File.open('#{opts[:output]}', 'w') {|f|
-          RubyProf::FlatPrinter.new(result).print(f)
+          RubyProf::#{PRINTERS[opts[:printer]]}.new(result).print(f)
         }
         CODE
       end

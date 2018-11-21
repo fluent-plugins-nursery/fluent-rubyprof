@@ -48,6 +48,7 @@ $ fluent-rubyprof stop -h localhost -p 24230 -o /tmp/fluent-rubyprof.txt
 |-u, --unix PATH|use unix socket instead of tcp||
 |-o, --output PATH|output file|/tmp/fluent-rubyprof.txt|
 |-m, --measure_mode MEASURE_MODE|ruby-prof measure mode. See [ruby-prof#measurements](https://github.com/ruby-prof/ruby-prof#measurements)|PROCESS_TIME|
+|-P, --printer PRINTER|ruby-prof print format. See [ruby-prof#printers](https://github.com/ruby-prof/ruby-prof#printers)|flat|
 
 ## Further Reading
 

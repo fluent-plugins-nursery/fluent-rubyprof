@@ -19,6 +19,14 @@ describe Fluent::Rubyprof do
     it 'incorrect measure_mode' do
       expect { Fluent::Rubyprof.new.parse_options(['start', '-m', 'foo']) }.to raise_error(OptionParser::InvalidOption)
     end
+
+    it 'correct printer' do
+      expect { Fluent::Rubyprof.new.parse_options(['start', '-P', 'graph']) }.not_to raise_error
+    end
+
+    it 'incorrect printer' do
+      expect { Fluent::Rubyprof.new.parse_options(['start', '-P', 'bar']) }.to raise_error(OptionParser::InvalidArgument)
+    end
   end
 
   context 'profiling' do
