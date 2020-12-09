@@ -69,7 +69,7 @@ module Fluent
         raise OptionParser::InvalidOption.new("`start` or `stop` must be specified as the 1st argument")
       end
 
-      measure_modes = %w[PROCESS_TIME WALL_TIME CPU_TIME ALLOCATIONS MEMORY GC_RUNS GC_TIME] 
+      measure_modes = %w[PROCESS_TIME WALL_TIME ALLOCATIONS MEMORY]
       unless measure_modes.include?(opts[:measure_mode])
         raise OptionParser::InvalidOption.new("-m allows one of #{measure_modes.join(', ')}")
       end
