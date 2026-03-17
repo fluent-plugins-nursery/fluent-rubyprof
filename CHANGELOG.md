@@ -1,3 +1,11 @@
+# 0.3.0 (2026/03/17)
+
+Fixes:
+
+* Support ruby-prof 1.x API
+* Remove unavailable measure mode (CPU_TIME, GC_TIME, GC_RUNS)
+* gem: remove unnecessary version dependency
+
 # 0.2.0 (2018/11/21)
 
 Enhancements:
