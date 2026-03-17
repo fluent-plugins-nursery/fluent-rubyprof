@@ -96,15 +96,19 @@ module Fluent
       when 'start'
         remote_code = <<-CODE
         require 'ruby-prof'
-        RubyProf.measure_mode = eval("RubyProf::#{opts[:measure_mode]}")
-        RubyProf.start
+        $fluent_rubyprof_instance = RubyProf::Profile.new(measure_mode: RubyProf::#{opts[:measure_mode]})
+        $fluent_rubyprof_instance.start
         CODE
       when 'stop'
         remote_code = <<-"CODE"
-        result = RubyProf.stop
-        File.open('#{opts[:output]}', 'w') {|f|
-          RubyProf::#{PRINTERS[opts[:printer]]}.new(result).print(f)
-        }
+        require 'ruby-prof'
+        if defined?($fluent_rubyprof_instance) && $fluent_rubyprof_instance
+          result = $fluent_rubyprof_instance.stop
+          File.open('#{opts[:output]}', 'w') {|f|
+            RubyProf::#{PRINTERS[opts[:printer]]}.new(result).print(f)
+          }
+          $fluent_rubyprof_instance = nil
+        end
         CODE
       end
 
