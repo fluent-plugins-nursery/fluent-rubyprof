@@ -13,7 +13,7 @@ describe Fluent::Rubyprof do
     end
 
     it 'correct measure_mode' do
-      expect { Fluent::Rubyprof.new.parse_options(['start', '-m', 'CPU_TIME']) }.not_to raise_error
+      expect { Fluent::Rubyprof.new.parse_options(['start', '-m', 'PROCESS_TIME']) }.not_to raise_error
     end
 
     it 'incorrect measure_mode' do
