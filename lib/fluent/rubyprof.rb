@@ -69,7 +69,7 @@ module Fluent
         raise OptionParser::InvalidOption.new("`start` or `stop` must be specified as the 1st argument")
       end
 
-      measure_modes = %w[PROCESS_TIME WALL_TIME CPU_TIME ALLOCATIONS MEMORY GC_RUNS GC_TIME] 
+      measure_modes = %w[PROCESS_TIME WALL_TIME CPU_TIME ALLOCATIONS MEMORY GC_RUNS GC_TIME]
       unless measure_modes.include?(opts[:measure_mode])
         raise OptionParser::InvalidOption.new("-m allows one of #{measure_modes.join(', ')}")
       end
@@ -96,15 +96,19 @@ module Fluent
       when 'start'
         remote_code = <<-CODE
         require 'ruby-prof'
-        RubyProf.measure_mode = eval("RubyProf::#{opts[:measure_mode]}")
-        RubyProf.start
+        $fluent_rubyprof_instance = RubyProf::Profile.new(measure_mode: RubyProf::#{opts[:measure_mode]})
+        $fluent_rubyprof_instance.start
         CODE
       when 'stop'
         remote_code = <<-"CODE"
-        result = RubyProf.stop
-        File.open('#{opts[:output]}', 'w') {|f|
-          RubyProf::#{PRINTERS[opts[:printer]]}.new(result).print(f)
-        }
+        require 'ruby-prof'
+        if defined?($fluent_rubyprof_instance) && $fluent_rubyprof_instance
+          result = $fluent_rubyprof_instance.stop
+          File.open('#{opts[:output]}', 'w') {|f|
+            RubyProf::#{PRINTERS[opts[:printer]]}.new(result).print(f)
+          }
+          $fluent_rubyprof_instance = nil
+        end
         CODE
       end
 
